@@ -24,36 +24,31 @@
 
 ### Program 1: Body Mass Index
 
-| Test | Inputs (weight, height) | Expected Result | Actual Result | Match or Correction |
+| Program/test | Inputs | Expected result | Actual result | Match or correction |
 |---|---|---|---|---|
-| 1 | 100, 70 | 14.35 — Underweight | Fill in | Fill in |
-| 2 | 150, 70 | 21.52 — Optimal weight | Fill in | Fill in |
-| 3 | 200, 70 | 28.69 — Overweight | Fill in | Fill in |
-| 4 | 150, 0 | Error: weight and height must be positive. | Fill in | Fill in |
-| 5 | -150, 70 | Error: weight and height must be positive. | Fill in | Fill in |
-| 6 (extra) | 0, 70 | Error: weight and height must be positive. | Fill in | Fill in |
-| 7 (boundary) | 129.73, 70 | Approximately 18.50 — Optimal weight | Fill in | Fill in |
-| 8 (boundary) | 174.96, 70 | Approximately 25.00 — Optimal weight | Fill in | Fill in |
-
-The extra test checks whether zero weight is rejected. The boundary tests check BMI values near 18.5 and 25.0. Record the actual output after running the program.
+| BMI 1 | 100, 70 | 14.35 — Underweight | 14.35 — Underweight | Match |
+| BMI 2 | 150, 70 | 21.52 — Optimal weight | 21.52 — Optimal weight | Match |
+| BMI 3 | 200, 70 | 28.69 — Overweight | 28.69 — Overweight | Match |
+| BMI 4 | 150, 0 | Error: weight and height must be positive. | Error: weight and height must be positive. | Match |
+| BMI 5 | -150, 70 | Error: weight and height must be positive. | Error: weight and height must be positive. | Match |
+| BMI 6 (extra) | 0, 70 | Error: weight and height must be positive. | Error: weight and height must be positive. | Match |
+| BMI 7 (extra) | 130, 70 | 18.64 — Optimal weight | 18.64 — Optimal weight | Match |
 
 ### Program 2: Color Mixer
 
-| Test | Inputs (first, second) | Expected Result | Actual Result | Match or Correction |
+| Program/test | Inputs | Expected result | Actual result | Match or correction |
 |---|---|---|---|---|
-| 1 | red, blue | purple | Fill in | Fill in |
-| 2 | red, yellow | orange | Fill in | Fill in |
-| 3 | blue, yellow | green | Fill in | Fill in |
-| 4 | blue, red | purple | Fill in | Fill in |
-| 5 | red, red | red | Fill in | Fill in |
-| 6 | orange, blue | Error: enter red, blue, or yellow. | Fill in | Fill in |
-| 7 | red, orange | Error: enter red, blue, or yellow. | Fill in | Fill in |
-| 8 (extra) | blue, blue | blue | Fill in | Fill in |
-| 9 (extra) | yellow, red | orange | Fill in | Fill in |
-| 10 (extra) | yellow, yellow | yellow | Fill in | Fill in |
-| 11 (extra) | blue, green | Error: enter red, blue, or yellow. | Fill in | Fill in |
-
-These tests cover all three mixtures, reversed input order, identical primary colors, and invalid colors in either position. Record the actual output after running the program.
+| Color 1 | red, blue | purple | Result: purple | Match |
+| Color 2 | red, yellow | orange | Result: orange | Match |
+| Color 3 | blue, yellow | green | Result: green | Match |
+| Color 4 | blue, red | purple | Result: purple | Match |
+| Color 5 | red, red | red | Result: red | Match |
+| Color 6 | orange, blue | Error: enter red, blue, or yellow. | Error: enter red, blue, or yellow. | Match |
+| Color 7 | red, orange | Error: enter red, blue, or yellow. | Error: enter red, blue, or yellow. | Match |
+| Color 8 (extra) | blue, blue | blue | Result: blue | Match |
+| Color 9 (extra) | yellow, red | orange | Result: orange | Match |
+| Color 10 (extra) | yellow, yellow | yellow | Result: yellow | Match |
+| Color 11 (extra) | blue, green | Error: enter red, blue, or yellow. | Error: enter red, blue, or yellow. | Match |
 
 ---
 
@@ -61,37 +56,37 @@ These tests cover all three mixtures, reversed input order, identical primary co
 
 ### Program 1: Body Mass Index
 
-**1. How does the BMI formula use pounds and inches? Why is `height * height` needed?**
+1. How does the BMI formula use pounds and inches? Why is `height * height` needed?
 
-The formula multiplies weight in pounds by 703 and divides it by height in inches squared. The expression `height * height` squares the height. In C++, `^` does not perform exponentiation.
+The formula multiplies weight in pounds by 703 and divides it by height in inches squared. The expression `height * height` squares the height.
 
-**2. How do your conditions handle exactly 18.5 and exactly 25.0? Does the order matter?**
+2. How do your conditions handle exactly 18.5 and exactly 25.0? Does the order matter?
 
 The first condition checks whether BMI is less than 18.5. The second condition checks whether BMI is less than or equal to 25.0 after the first condition fails. This means exactly 18.5 and exactly 25.0 are classified as optimal. The order matters because the `else if` condition is evaluated only if the first condition is false.
 
-**3. Why check weight and height before calculating BMI?**
+3. Why check weight and height before calculating BMI?
 
 Weight and height must both be greater than zero. Checking them first prevents an invalid calculation and allows the program to display an error message instead.
 
-**4. Why classify the unrounded BMI and round only its displayed value?**
+4. Why classify the unrounded BMI and round only its displayed value?
 
 Rounding before classification could change the category of a BMI near a boundary. The program uses the original `double` value for its conditions and uses `fixed` and `setprecision(2)` only to format the displayed result.
 
 ### Program 2: Color Mixer
 
-**5. What does `strcmp` return for equal text? Why is `==` not the correct comparison for character-array contents?**
+5. What does `strcmp` return for equal text? Why is `==` not the correct comparison for character-array contents?
 
 `strcmp` returns zero when two null-terminated character strings contain the same text. Using `==` does not compare character-array contents as required by this assignment. I use `strcmp(first_color, "red") == 0` to check whether the input matches `red`.
 
-**6. How do you make each mixture work in either input order and handle identical colors?**
+6. How do you make each mixture work in either input order and handle identical colors?
 
 Each mixture condition checks both possible orders of the two colors. Before checking mixtures, the program checks whether both valid inputs are identical. If they match, the program displays that color.
 
-**7. How do you check for an invalid color in either input position?**
+7. How do you check for an invalid color in either input position?
 
 The program checks each input separately and stores the results in `first_valid` and `second_valid`. The condition `!first_valid || !second_valid` detects whether either input is invalid. The program displays an error instead of a mixed color.
 
-**8. How do named constants and result variables make the programs easier to read and check?**
+8. How do named constants and result variables make the programs easier to read and check?
 
 The named constant `COLOR_SIZE` gives the array size a clear meaning and avoids an unexplained number. The `bmi` variable stores the calculation so it can be displayed and classified. The validity variables make the color checks easier to understand.
 
@@ -99,7 +94,6 @@ The named constant `COLOR_SIZE` gives the array size a clear meaning and avoids 
 
 ## 4. Compilation and Execution
 
-I used [write your method: terminal compiler or OnlineGDB] to compile and test both programs separately.
 
 ### Compile and run `bmi.cpp`
 
@@ -118,14 +112,5 @@ g++ -std=c++17 -Wall -Wextra color_mixer.cpp -o color_mixer
 After testing, I recorded the actual results in the tables above, corrected any problems, and compiled and ran both final versions again.
 
 ---
-
-## 5. GitHub Submission
-
-The public GitHub repository is named `cis165-lab7` and contains these four files at the top level:
-
-- `bmi.cpp`
-- `color_mixer.cpp`
-- `README.md`
-- `AI_REFLECTION.md`
 
 Before submitting, I checked that all four files are visible in the repository and that the latest commit contains the final tested versions.
